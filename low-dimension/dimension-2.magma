@@ -1,5 +1,4 @@
 load "import.magma";
-load "output.magma";
 
 // determine the IDs we want to read
 IDs := [1..5];
