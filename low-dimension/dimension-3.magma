@@ -1,0 +1,38 @@
+load "import.magma";
+load "output.magma";
+
+// determine the IDs we want to read
+IDs := [6..23];
+
+// set output for Pari/GP
+variable := "dim3";
+filename := "dimension-3.gp";
+
+
+// the actual code
+F := Open(filename, "w");
+
+fprintf F, "%o = [\\\n", variable;
+
+for ID in IDs do
+  vertices := LoadSmoothToricFanoPolytope(ID);
+
+  // compute Ehrhart polynomial of dual
+  P := Polytope(vertices);
+  f := EhrhartPolynomial(Dual(P))[1];
+
+  // assign a human-readable name to the variable
+  S := Parent(f);
+  AssignNames(~S, ["t"]);
+
+  if ID ne #IDs then
+    fprintf F, "%o, /* ID = %o */\\\n", f, ID;
+  else
+    fprintf F, "%o /* ID = %o */\\\n", f, ID;
+  end if;
+end for;
+
+fprintf F, "];\n";
+// close the file
+delete F;
+
