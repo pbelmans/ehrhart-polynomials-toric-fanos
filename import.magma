@@ -1,4 +1,4 @@
-// we assume the content of smoothfano.tar.gz is in this directory
+// we assume the content of smoothfano.tar.gz is in the directory smoothfano/
 // blocks contain 250 polytopes each
 // dimensions are distributed as follows
 // dimension 2: 1--5
@@ -16,7 +16,7 @@ LoadSmoothToricFanoPolytope := function(ID)
   // open the appropriate block file
   // the first line tells us the base the data is encoded in
   // so we extract that, then fetch the required line
-  file := "block" cat IntegerToString(block);
+  file := "smoothfano/block" cat IntegerToString(block);
   fh := Open(file, "r");
   base := Gets(fh);
   while num gt 0 do
