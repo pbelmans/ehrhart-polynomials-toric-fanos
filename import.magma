@@ -45,3 +45,46 @@ LoadSmoothToricFanoPolytope := function(ID)
   // done
   return vertices;
 end function;
+
+// we assume the content of smoothfano7.tar.gz is in the directory smoothfano7/
+// blocks contain 722 polytopes each
+
+LoadSmoothToricFanoPolytopeOfDimensionSeven := function(ID)
+  // first we compute which block file to look in
+  block := (ID - 1) div 722;
+  // then we compute which line number in the file we need
+  num := ((ID - 1) mod 722) + 1;
+
+  // open the appropriate block file
+  // the first line tells us the base the data is encoded in
+  // so we extract that, then fetch the required line
+  file := "smoothfano7/block" cat IntegerToString(block);
+  fh := Open(file, "r");
+  base := Gets(fh);
+  while num gt 0 do
+      line := Gets(fh);
+      num -:= 1;
+  end while;
+
+  // convert the base and line into integers
+  base := StringToInteger(base);
+  line := StringToInteger(line);
+
+  // unpack the integer into a sequence
+  coeffs := IntegerToSequence(line, base);
+
+  // the first entry in the sequence is the dimension of the polytope
+  dim := coeffs[1];
+  // the second entry is a shift value we'll need
+  shift := coeffs[2];
+
+  // we need to subtract "shift" from the remaining values.
+  coeffs := [ coeffs[i] - shift : i in [3..#coeffs] ];
+
+  // finally collect the coefficients together into groups of the correct dimension
+  vertices := [ [ coeffs[dim * i + j] : j in [1..dim] ] : i in [0..#coeffs div dim - 1] ];
+
+  // done
+  return vertices;
+end function;
+
