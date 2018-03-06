@@ -24,7 +24,7 @@ for ID in IDs do
   S := Parent(f);
   AssignNames(~S, ["t"]);
 
-  if ID ne #IDs then
+  if ID ne IDs[#IDs] then
     fprintf F, "%o, /* ID = %o */\\\n", f, ID;
   else
     fprintf F, "%o /* ID = %o */\\\n", f, ID;
