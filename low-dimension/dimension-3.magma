@@ -35,3 +35,4 @@ fprintf F, "];\n";
 // close the file
 delete F;
 
+quit;
