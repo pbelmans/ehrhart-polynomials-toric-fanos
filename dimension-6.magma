@@ -25,9 +25,9 @@ for ID in IDs do
   AssignNames(~S, ["t"]);
 
   if ID ne IDs[#IDs] then
-    fprintf F, "%o, /* ID = %o */\\\n", f, ID;
+    fprintf F, "/* ID = %o */ %o, \\\n", ID, f;
   else
-    fprintf F, "%o /* ID = %o */\\\n", f, ID;
+    fprintf F, "/* ID = %o */ %o \\\n", ID, f;
   end if;
 end for;
 
