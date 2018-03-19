@@ -1,0 +1,2 @@
+*.gp linguist-language=Pari/GP
+*.magma linguist-language=Magma
